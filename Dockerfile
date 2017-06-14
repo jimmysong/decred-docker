@@ -11,10 +11,8 @@ ENV DECRED_VERSION v1.0.3
 ENV DECRED_FILENAME decred-linux-amd64-${DECRED_VERSION}.tar.gz
 ENV MANIFEST manifest-${DECRED_VERSION}.txt
 RUN curl -SLO https://github.com/decred/decred-binaries/releases/download/${DECRED_VERSION}/${DECRED_FILENAME} \
+ && curl -SLO https://github.com/decred/decred-binaries/releases/download/${DECRED_VERSION}/${MANIFEST} \
  && curl -SLO https://github.com/decred/decred-binaries/releases/download/${DECRED_VERSION}/${MANIFEST}.asc
-
-RUN curl -SLO https://github.com/decred/decred-binaries/releases/download/${DECRED_VERSION}/${MANIFEST}
-
 
 # Verify and install download
 COPY release-key.asc /decred
@@ -25,9 +23,7 @@ RUN gpg --import release-key.asc \
  && rm ${DECRED_FILENAME} ${MANIFEST} ${MANIFEST}.asc
 
 RUN mkdir /dcrd \
- && mkdir /dcrwallet \
- && echo "[Application Options]">/dcrd/dcrd.conf \
- && echo "[Application Options]">/dcrd/dcrwallet.conf
+ && mkdir /dcrwallet
 
 RUN ln -s /dcrd /root/.dcrd \
  && ln -s /dcrwallet /root/.dcrwallet
@@ -39,6 +35,9 @@ RUN mkdir /root/.ssh \
 
 # Expose SSH port
 EXPOSE 22
+
+# Expose Peer Port
+EXPOSE 9108
 
 COPY run.sh /opt
 CMD ["/opt/run.sh"]

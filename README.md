@@ -8,7 +8,6 @@ Simple SSH/X11-connectable docker container that uses:
  * Ubuntu Core 16.04
  * Decred 1.0.3
 
-
 Usage
 -----
 You can build with
