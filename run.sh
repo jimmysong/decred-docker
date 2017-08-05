@@ -19,4 +19,7 @@ fi
 /usr/sbin/sshd
 
 # start dcrd
-dcrd
+dcrd &
+
+# start dcrwallet
+dcrwallet
