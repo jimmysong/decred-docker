@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER "Jimmy Song" <http://github.com/jimmysong>
 
 RUN apt update \
@@ -7,7 +7,7 @@ RUN apt update \
 # Download Decred
 RUN mkdir /decred
 WORKDIR /decred
-ENV DECRED_VERSION v1.0.3
+ENV DECRED_VERSION v1.3.0
 ENV DECRED_FILENAME decred-linux-amd64-${DECRED_VERSION}.tar.gz
 ENV MANIFEST manifest-${DECRED_VERSION}.txt
 RUN curl -SLO https://github.com/decred/decred-binaries/releases/download/${DECRED_VERSION}/${DECRED_FILENAME} \
